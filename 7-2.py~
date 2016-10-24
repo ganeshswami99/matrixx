@@ -1,0 +1,34 @@
+#!/usr/bin/python
+
+import os
+
+os.system("reset")
+loc="python "
+s="samba"
+d = "dialog"
+def samba():
+	os.system(""+d+"  --menu  '------[SAMBA-Server]-----' 18  50  5  	1 'Install samba Server'  											2 'Start the Server' 											3 'Stop  the Server'  											4 'Connect to Client'  							 											5 'Exit to Main Menu'  2>/tmp/ch.txt")
+
+	f=open('/tmp/ch.txt','r')
+	ch=f.read()
+	f.close()	
+	if(ch=='1'):
+		os.system("yum install "+s+"-server  -y")
+		exit()
+	elif(ch=='2'):
+		os.system("service "+s+"  start")
+		exit()
+	elif(ch=='3'):
+		os.system("service "+s+" stop ")
+		exit()
+	elif(ch=='4'):
+		os.system("service "+s+" restart")
+		exit()
+	elif(ch=='5'):
+		os.system(""+loc+"main.py")
+	else:
+		os.system(""+d+"  --infobox  'Choose OPTION 8 to EXIT' 5 30")
+		time.sleep(2)
+		os.system(""+loc+"7-2.py")
+samba()
+

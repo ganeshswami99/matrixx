@@ -1,0 +1,80 @@
+#!/usr/bin/python
+
+import os,time
+
+def fun():
+	f2=open('/tmp/ch1.txt','r')
+	ch2=f2.read()
+	f2.close()
+	return ch2
+def printit():
+	os.system(""+d+"  --msgbox 'Processed file is at Desktop' 10 20 ") 
+def base64():
+	os.system(""+d+"  --inputbox 'Enter file location ' 10 30  2>/tmp/ch1.txt")
+	ch=fun()
+	os.system("openssl  base64  -e  -in "+ch+">"+loc+"base64")
+	printit()	
+def des():
+	os.system(""+d+"  --inputbox 'Enter file location ' 10 30  2>/tmp/ch1.txt")
+	ch=fun()
+	os.system("openssl  base64  -e  -des -in "+ch+">"+loc+"des")
+	printit()		
+def aes():
+	os.system(""+d+"  --inputbox 'Enter file location ' 10 30  2>/tmp/ch1.txt")
+	ch=fun()
+	os.system("openssl  base64  -e  -aes256 -in "+ch+">"+loc+"aes")
+	printit()
+
+
+os.system("reset")
+d='dialog'
+loc="/root/Desktop/"
+def crypto():
+	os.system(""+d+"  --menu  '----****[Cyrptography Analysis]****----' 12  46  3  	1 'Encoding' 												2 'Decoding' 												3 'EXIT to MAIN-MENU' 2>/tmp/ch4.txt")
+	f=open('/tmp/ch4.txt','r')
+	ch=f.read()
+	f.close()
+	if(ch=='1'):
+		os.system(""+d+"  --menu  '----[ENCODING]----' 12  30  3 	 1 'Using Algo base64'  										 2 'Using Algo des' 											 3 'using Algo aes'  2>/tmp/ch5.txt")
+		f=open('/tmp/ch5.txt','r')
+		ch5=f.read()
+		f.close()
+		if(ch5=='1'):
+			base64()
+		elif(ch5=='2'):
+			des()
+		elif(ch5=='3'):
+			aes()
+			
+	elif(ch=='2'):
+		os.system(""+d+"  --menu  '----[DECODING]----' 12  30  3 	 1 'Using Algo base64'  										 2 'Using Algo des' 											 3 'using Algo aes'  2>/tmp/ch6.txt")
+		f=open('/tmp/ch6.txt','r')
+		ch6=f.read()
+		f.close()
+		if(ch6=='1'):
+			os.system(""+d+"  --inputbox 'Enter file location ' 10 30  2>/tmp/ch1.txt")
+			ch2=fun()
+			os.system("openssl  base64  -d   -in "+ch2+">"+loc+"based64")
+			printit()
+		if(ch6=='2'):
+			os.system(""+d+"  --inputbox 'Enter file location ' 10 30  2>/tmp/ch1.txt")
+			ch2=fun()
+			os.system("openssl  base64  -d  -des -in "+ch2+">"+loc+"desd")	
+			printit()
+		if(ch6=='3'):
+			os.system(""+d+"  --inputbox 'Enter file location ' 10 30  2>/tmp/ch1.txt")
+			ch2=fun()
+			os.system("openssl  base64  -d  -aes256 -in "+ch2+">"+loc+"aesd")
+			printit()
+	elif(ch=='3'):
+		os.system("python main.py")
+	else :
+		os.system(""+d+"  --infobox  'Choose option 3 to EXIT' 5 30")
+		time.sleep(2)
+		os.system("python  2.py")
+	time.sleep(2)
+	os.system(""+loc+" 2.py")
+
+crypto()
+
+

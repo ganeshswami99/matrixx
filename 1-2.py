@@ -1,0 +1,54 @@
+#!/usr/bin/python
+import os,time
+
+os.system("reset")
+loc="python  "
+d="dialog"
+def fun1():
+	f1=open('/tmp/ch1.txt','r')
+	ch1=f1.read()
+	f1.close()
+	return ch1
+def fun2():
+	f2=open('/tmp/ch2.txt','r')
+	ch2=f2.read()
+	f2.close()
+	return ch2
+
+def nc():
+	os.system(""+d+"  --menu  '------[NetCat(Nc)]-----' 18  50  4  	1 'IP succeding USING and Port no.'  									2 'IP USING mutiple Port no' 									3 'Scanning through website'  									4 'Exit to Main Menu'  2>/tmp/ch3.txt")
+
+	f=open('/tmp/ch3.txt','r')
+	ch3=f.read()
+	f.close()
+	if ch3=='1' :
+		os.system(""+d+"  --inputbox 'Enter the IP address of the server:' 10  30  2>/tmp/ch1.txt")
+		ch1=fun1()
+		os.system(""+d+"  --inputbox 'Enter Port no.' 10  30  2>/tmp/ch2.txt")
+		ch2=fun2()
+		os.system("nc  -z  " +ch1+"  "+ch2)
+	elif ch3=='2' :
+		os.system(""+d+"  --inputbox 'Enter the IP address of the server:' 10  30  2>/tmp/ch1.txt")
+		ch1=fun1()
+		os.system(""+d+"  --inputbox 'Enter Starting Port no.' 10 30  2>/tmp/ch2.txt")
+		ch2=fun2()
+		os.system(""+d+"  --inputbox 'Enter Last port no.' 10  30  2>/tmp/ch3.txt")
+		f2=open('/tmp/ch3.txt','r')
+		ch3=f2.read()
+		f2.close()
+		os.system("nc  -z  " +ch1+" " +ch2+"-"+ch3)
+	elif ch3=='3' :
+		os.system(""+d+"  --inputbox 'Enter address of website ' 10  30  2>/tmp/ch1.txt")
+		ch1=fun1()
+		os.system(""+d+"  --inputbox 'Enter the Port no.' 10  30  2>/tmp/ch2.txt")
+		ch2=fun2()
+		os.system("nc -z  " +ch1+"  "+ch2)
+	elif ch3=='4' :
+		os.system(""+loc+"main.py")
+	else:
+		os.system(""+d+"  --infobox  'Choose option 4 for EXIT' 5 30")
+		time.sleep(2)
+		os.system(""+loc+"1-2.py")
+
+nc()
+

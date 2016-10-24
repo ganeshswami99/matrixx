@@ -1,0 +1,6 @@
+[mydata1]
+path = /etc/
+readable = yes
+     1	abss
+     2	asfa
+qwerty
